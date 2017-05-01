@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>We-Tickets</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-resource.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+    body,h1 {font-family: "Raleway", Arial, sans-serif}
+    h1 {letter-spacing: 6px}
+    .w3-row-padding img {margin-bottom: 12px}
+
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+    td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    }
+
+    tr:nth-child(even) {
+    background-color: #dddddd;
+    }
+    </style>
+
+   
+
+</head>
+<body>
+<!-- !PAGE CONTENT! -->
+<div class="w3-content" style="max-width:1500px">
+
+<!-- Header -->
+<header class="w3-panel w3-center w3-opacity" >
+  <img src="\images\we-logo1.png" class="img-responsive" style="display:inline" alt="We-Tickets" width="600" height="150">
+</header>
+
+
+
+
+<center><font color = "#FF0000"><h1>Edit Booking By Admin</h1></font></center>
+<br>
+<div class="container" ng-app="WeApp" ng-controller="WeCtrl">  
+        
+  <table class="table table-condensed">
+<div >  
+    <font color="red">
+    <thead>
+      <tr>
+        <th>Booking-Number</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Admin</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="we in wes" ng-if="!isEmpty(we)">
+        <td>{{we.bookingnumber}}</td>
+        <td>{{we.name}}</td>
+        <td>{{we.process}}</td>
+        <td><button type="submit" class="btn btn-warning" ng-click="edit(exchange.id)"> Edit </button>
+            <button type="submit" class="btn btn-danger" ng-click="delete(exchange.id)"> Delete </button></td>
+
+      </tr>
+  
+    </tbody>  
+
+    </tbody>
+  </table>
+</div>
+
+
+
+<script type="text/javascript">
+    var app = angular.module("WeApp",['ngResource'])
+    app.controller("WeCtrl", function($scope, $resource){
+       var We = $resource('/api/wes2/:bookingnumber_id',{bookingnumber_id: '@id'})
+        $scope.get = function(){
+          We.get({ bookingnumber_id:  $scope.book} , function (result) {
+            $scope.booking = result
+        })
+
+               
+      }
+
+       $scope.isEmpty = function(we) {
+        return Object.keys(we).length == 0
+      }
+
+      $scope.select = function(id, we) {
+        return id == we.id
+      }
+    })
+
+
+</script>
+<footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-large"> 
+  <p>We-Tickets @ 2017</p>
+</footer>
+</body>
+</html>
+

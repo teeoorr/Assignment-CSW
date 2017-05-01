@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+	  <title>We-Tickets</title>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-resource.min.js"></script>
+	  <meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="css/bootstrap.min.css">
+  	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	  <style>
+    body,h1 {font-family: "Raleway", Arial, sans-serif}
+    h1 {letter-spacing: 6px}
+    .w3-row-padding img {margin-bottom: 12px}
+
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+    td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    }
+
+    tr:nth-child(even) {
+    background-color: #dddddd;
+    }
+    </style>
+
+   
+
+</head>
+<body>
+<!-- !PAGE CONTENT! -->
+<div class="w3-content" style="max-width:1500px">
+
+<!-- Header -->
+<header class="w3-panel w3-center w3-opacity" >
+  <img src="\images\we-logo1.png" class="img-responsive" style="display:inline" alt="We-Tickets" width="800" height="350">
+  <h3>Pre-Booking</h3>
+  
+  <div class="w3-padding-32">
+    <div class="w3-bar w3-border">
+       <a href="home.html" class="w3-bar-item w3-button">Home</a>
+      <a href="booking.html" class="w3-bar-item w3-button">Booking</a>
+      <a href="money.html" class="w3-bar-item w3-button">Booking Status</a>
+      <a href="check.html" class="w3-bar-item w3-button">Payment</a>
+      <a href="admin.html" class="w3-bar-item w3-button">Admin</a>
+    </div>
+  </div>
+</header>
+</div>
+
+
+  <div ng-app="WeApp" ng-controller="WeCtrl">
+    
+  
+    <div class="w3-container w3-red">
+      <h2>Booking Now</h2>
+    </div>
+    <div class="w3-container w3-white w3-padding-16" >
+      <form target="_blank">
+        <div class="w3-row-padding" style="margin:0 -16px;">
+
+          <div class="w3-half w3-margin-bottom">
+            <label>Name</label>
+            <input class="w3-input w3-border" type="text" placeholder="Name-Surname" name="name" ng-model="addWe.name">
+          </div>
+
+          <div class="w3-half">
+            <label>National ID Card</label>
+            <input class="w3-input w3-border" type="text" placeholder="Identification Number" name="number" ng-model="addWe.number">
+          </div>
+        </div>
+
+        <div class="w3-row-padding" style="margin:0 -16px;">
+          <div class="w3-half w3-margin-bottom">
+            <label>Telephone</label>
+            <input class="w3-input w3-border" type="text" placeholder="Telephone Number" name="telephone" ng-model="addWe.telephone">
+          </div>
+
+          <div class="w3-half">
+            <label>E-mail</label>
+            <input class="w3-input w3-border" type="text" placeholder="E-mail Address" name="email" ng-model="addWe.email">
+          </div>
+        </div>
+
+        <div class="w3-row-padding" style="margin:8px -16px;">
+          <div class="w3-half w3-margin-bottom">
+            <label>Adults</label>
+            <input class="w3-input w3-border" type="number" value="1" name="adult" min="1" max="6" ng-model="addWe.adult">
+          </div>
+
+    
+      <div class="w3-half">
+      <label for="Reserv">Reservation Information</label>
+      <select ng-options="item as item.name for item in con" ng-model="addWe.conlist">
+      </select>
+      </div>
+      <from>
+      <div class="w3-half">
+      <label for="price">Price and Seat</label>
+      <select ng-options="item as item.sit + ' - ' + (item.price | currency:'Bath ':0)   for item in addWe.conlist.seat" ng-model="addWe.sitting">
+      </select>
+      </div>
+      </from>
+    
+
+    </div>
+  </div>
+
+<center>
+<button class="w3-button w3-dark-grey" type="button" ng-click="add()">BOOK NOW</button></center>
+ <div class="w3-container w3-margin-top" ng-if ="name">
+    <center><strong><font color="red"><h3>Booking Success</h3></font></strong></center>
+   
+<table>
+  <tr>
+    <th>Booking Number</th>
+    <th>Name </th>
+    <th>Number of people </th>
+    <th>Total Price</th>
+  </tr>
+  <tr>
+    <td>{{bookingnumber}}</td>
+    <td>{{name}} </td>
+    <td>{{adult}}</td>
+    <td>{{total}}</td>
+  </tr>
+</table>
+</div>
+<br>
+
+</div>
+<br>
+<br>
+<br>
+
+<script type="text/javascript">
+    var app = angular.module("WeApp",['ngResource'])
+    app.controller("WeCtrl", function($scope, $resource){
+       var We = $resource('/api/wes/',{ })
+       $scope.con = [
+        {'name':'BRITNEY LIVE IN BANGKOK',
+          'seat':[{'price':6000,'sit':"B1"},
+                  {'price':6000,'sit':"B2"},
+                  {'price':6000,'sit':"B3"},
+                  {'price':4500,'sit':"AL"},
+                  {'price':4500,'sit':"AR"},
+                  {'price':3000,'sit':"A"},
+                  {'price':3000,'sit':"B"},
+                  {'price':3000,'sit':"I"},
+                  {'price':3000,'sit':"H"},
+                  {'price':2000,'sit':"C"},
+                  {'price':2000,'sit':"D"},
+                  {'price':2000,'sit':"E"},
+                  {'price':2000,'sit':"F"},
+                  {'price':2000,'sit':"G"}
+                ]
+        },
+        {'name':'PITBULL CLIMATE CHANGE TOUR',
+          'seat':[{'price':3500,'sit':"A STANDING"},
+                  {'price':2500,'sit':"B STANDING"}
+                ]
+        }
+
+       ]
+                       
+      $scope.wes = We.query()
+      
+
+    
+    $scope.add =  function() {
+          
+          We.save({ name: $scope.addWe.name, 
+                  number: $scope.addWe.number,
+                  telephone: $scope.addWe.telephone, 
+                  email: $scope.addWe.email,
+                  adult: $scope.addWe.adult,
+                  conlist: $scope.addWe.conlist.name,
+                  price: $scope.addWe.sitting
+                },function(respone){
+                  $scope.bookingnumber = respone.bookingnumber
+                  $scope.name = respone.name
+                  $scope.total = respone.total
+                  $scope.adult = respone.adult
+                })
+          $scope.wes = We.query()
+          
+      }
+
+      $scope.isEmpty = function(we) {
+        return Object.keys(we).length == 0
+      }
+
+      $scope.select = function(id, we) {
+        return id == we.id
+      }
+
+    })
+  </script>
+<footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-large"> 
+  <p>We-Tickets @ 2017</p>
+</footer>
+</body>
+</html>
