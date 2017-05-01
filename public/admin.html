@@ -44,7 +44,11 @@
 <header class="w3-panel w3-center w3-opacity" >
   <img src="\images\we-logo1.png" class="img-responsive" style="display:inline" alt="We-Tickets" width="600" height="150">
 </header>
-
+  
+ <div class="container">
+      <center><a href="home.html" class="w3-bar-item w3-button">Home Page</a></center>
+</div>
+  
 
 
 
@@ -54,20 +58,51 @@
         
   <table class="table table-condensed">
 <div >  
-    <font color="red">
+    <font color="blue"><h2>Booking Payment</h2>
     <thead>
       <tr>
         <th>Booking-Number</th>
         <th>Name</th>
-        <th>Status</th>
-        <th>Admin</th>
+        <th>Price</th>
+        <th>Time Transfer</th>
+        <th>Date</th>
+        <th>Bank</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="we in wes" ng-if="!isEmpty(we)">
-        <td>{{we.bookingnumber}}</td>
-        <td>{{we.name}}</td>
-        <td>{{we.process}}</td>
+      <tr ng-repeat="we1 in wes" ng-if="!isEmpty(we)">
+        <td>{{we1.book1}}</td>
+        <td>{{we1.name1}}</td>
+        <td>{{we1.price1}}</td>
+        <td>{{we1.transfer1}}</td>
+        <td>{{we1.date1}}</td>
+        <td>{{we1.banklist1}}</td>
+      </tr>
+    </tbody>  
+  </table>
+
+
+<table class="table table-condensed">
+<div >  
+    <font color="red"><h2>Edit Booking Payment</h2>
+    <thead>
+      <tr>
+        <th>Booking-Number</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Time Transfer</th>
+        <th>Date</th>
+        <th>Bank</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="we1 in wes" ng-if="!isEmpty(we)">
+        <td>{{we1.book1}}</td>
+        <td>{{we1.name1}}</td>
+        <td>{{we1.price1}}</td>
+        <td>{{we1.transfer1}}</td>
+        <td>{{we1.date1}}</td>
+        <td>{{we1.banklist1}}</td>
         <td><button type="submit" class="btn btn-warning" ng-click="edit(exchange.id)"> Edit </button>
             <button type="submit" class="btn btn-danger" ng-click="delete(exchange.id)"> Delete </button></td>
 
@@ -78,28 +113,13 @@
     </tbody>
   </table>
 </div>
-
-
-
+</div>
 <script type="text/javascript">
     var app = angular.module("WeApp",['ngResource'])
     app.controller("WeCtrl", function($scope, $resource){
-       var We = $resource('/api/wes2/:bookingnumber_id',{bookingnumber_id: '@id'})
-        $scope.get = function(){
-          We.get({ bookingnumber_id:  $scope.book} , function (result) {
-            $scope.booking = result
-        })
-
-               
-      }
-
-       $scope.isEmpty = function(we) {
-        return Object.keys(we).length == 0
-      }
-
-      $scope.select = function(id, we) {
-        return id == we.id
-      }
+       var We = $resource('/api/wes2/',{ })
+          $scope.wes = We.query()
+          
     })
 
 
