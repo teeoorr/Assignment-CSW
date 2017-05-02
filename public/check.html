@@ -67,6 +67,7 @@
       <label>Date :</label>
       <input type="text" class="form-control" ng-model="addWe.date1" name="date1" placeholder="Example : 31/04/2017" >
     </div>
+    </form>
 
 
 
@@ -78,14 +79,16 @@
       <option>632-8514-630  Krung-Thai Bank</option>
       </select>
       </div>
-      </from>
-    <center><button class="w3-button w3-dark-grey" ng-click="add()">Confirm</button>
-    <div ng-if ="name1">
-    <center><strong><font color="red"><h3>Success</h3></font></strong></center>
-    </div>
+
+    <center><button class="w3-button w3-dark-grey" type="button" ng-click="add()">Confirm</button>
+    <div class="container" ng-if ="book1">
+        <center><strong><h3>Success</h3></strong></center>
+        <font color="red"><h3>Booking Number : {{book1}}</h3></font>
+</div>
 
 </div>
 </div>
+
 
 <br>
 <br>
@@ -103,6 +106,8 @@
                   transfer1: $scope.addWe.transfer1,
                   date1: $scope.addWe.date1,
                   banklist1: $scope.addWe.banklist1
+                  },function(respone){
+                  $scope.book1 = respone.book1
                 })
           $scope.wes = We.query()
           

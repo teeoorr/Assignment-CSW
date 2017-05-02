@@ -82,36 +82,6 @@
   </table>
 
 
-<table class="table table-condensed">
-<div >  
-    <font color="red"><h2>Edit Booking Payment</h2>
-    <thead>
-      <tr>
-        <th>Booking-Number</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Time Transfer</th>
-        <th>Date</th>
-        <th>Bank</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="we1 in wes" ng-if="!isEmpty(we)">
-        <td>{{we1.book1}}</td>
-        <td>{{we1.name1}}</td>
-        <td>{{we1.price1}}</td>
-        <td>{{we1.transfer1}}</td>
-        <td>{{we1.date1}}</td>
-        <td>{{we1.banklist1}}</td>
-        <td><button type="submit" class="btn btn-warning" ng-click="edit(exchange.id)"> Edit </button>
-            <button type="submit" class="btn btn-danger" ng-click="delete(exchange.id)"> Delete </button></td>
-
-      </tr>
-  
-    </tbody>  
-
-    </tbody>
-  </table>
 </div>
 </div>
 <script type="text/javascript">
